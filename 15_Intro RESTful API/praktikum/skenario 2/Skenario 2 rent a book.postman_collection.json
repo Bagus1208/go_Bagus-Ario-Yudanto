@@ -1,0 +1,207 @@
+{
+	"info": {
+		"_postman_id": "582afc40-704e-4265-a8b5-5cc560dcacca",
+		"name": "Skenario 2 rent a book",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29059809"
+	},
+	"item": [
+		{
+			"name": "Get token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://virtserver.swaggerhub.com/sepulsa/RentABook-API/1.0.0/token"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all data client",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://virtserver.swaggerhub.com/sepulsa/RentABook-API/1.0.0/client"
+			},
+			"response": []
+		},
+		{
+			"name": "Post data client",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"client_id\": 5678,\r\n  \"client_key\": \"CLIENT03\",\r\n  \"client_secret\": \"SECRET03\",\r\n  \"status\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://virtserver.swaggerhub.com/sepulsa/RentABook-API/1.0.0/client"
+			},
+			"response": []
+		},
+		{
+			"name": "Put data client id 1234",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"client_id\": 5678,\r\n  \"client_key\": \"CLIENT03\",\r\n  \"client_secret\": \"SECRET03\",\r\n  \"status\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://virtserver.swaggerhub.com/sepulsa/RentABook-API/1.0.0/client/1234"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete data client id 1234",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://virtserver.swaggerhub.com/sepulsa/RentABook-API/1.0.0/client/1234"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all data user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://virtserver.swaggerhub.com/sepulsa/RentABook-API/1.0.0/user"
+			},
+			"response": []
+		},
+		{
+			"name": "Post data user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 2,\r\n  \"name\": \"Bagus Ario Yudanto\",\r\n  \"age\": 21,\r\n  \"sex\": \"male\",\r\n  \"client_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://virtserver.swaggerhub.com/sepulsa/RentABook-API/1.0.0/user"
+			},
+			"response": []
+		},
+		{
+			"name": "Put data user id 1",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 2,\r\n  \"name\": \"Bagus Ario Yudanto\",\r\n  \"age\": 21,\r\n  \"sex\": \"male\",\r\n  \"client_id\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://virtserver.swaggerhub.com/sepulsa/RentABook-API/1.0.0/user/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete data user id 1",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://virtserver.swaggerhub.com/sepulsa/RentABook-API/1.0.0/user/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all data book",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://virtserver.swaggerhub.com/sepulsa/RentABook-API/1.0.0/book"
+			},
+			"response": []
+		},
+		{
+			"name": "Post data rent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"client_id\": 5678,\r\n  \"client_key\": \"CLIENT03\",\r\n  \"client_secret\": \"SECRET03\",\r\n  \"status\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://virtserver.swaggerhub.com/sepulsa/RentABook-API/1.0.0/book"
+			},
+			"response": []
+		},
+		{
+			"name": "Put data book id 1234",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 5678,\r\n  \"title\": \"Edensor\",\r\n  \"isbn\": \"978-979-1227-02-5\",\r\n  \"writer\": \"Andrea Hirata\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://virtserver.swaggerhub.com/sepulsa/RentABook-API/1.0.0/book/1234"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete data book id 1234",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "https://virtserver.swaggerhub.com/sepulsa/RentABook-API/1.0.0/book/1234"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all data rent",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Post data rent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"book_id\": 5678,\r\n  \"user_id\": 80\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "https://virtserver.swaggerhub.com/sepulsa/RentABook-API/1.0.0/rent"
+			},
+			"response": []
+		}
+	]
+}
