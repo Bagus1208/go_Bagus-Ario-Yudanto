@@ -1,0 +1,32 @@
+#!/bin/sh
+
+new_dir="$1 at $(date)"
+echo "$new_dir"
+mkdir "$new_dir"
+cd "$new_dir"
+
+mkdir "about_me"
+cd "about_me"
+mkdir "personal"
+mkdir "professional"
+
+cd "personal"
+echo "https://www.facebook.com/$2" > facebook.txt
+cd ..
+
+cd "professional"
+echo "https://linkedin.com/in/$3" > linkedin.txt
+cd ..
+cd ..
+
+mkdir "my_friends"
+cd "my_friends"
+curl -o list_of_my_friends.txt https://gist.githubusercontent.com/tegarimansyah/e91f335753ab2c7fb12815779677e914/raw/94864388379fecee450fde26e3e73bfb2bcda194/list%2520of%2520my%2520friends.txt
+cd ..
+
+mkdir "my_system_info"
+cd "my_system_info"
+touch "about_this_laptop.txt"
+echo "My username: $(whoami)" >> about_this_laptop.txt
+echo "With host: $(uname -a)" >> about_this_laptop.txt
+ping -c 3 google.com > internet_connection.txt
