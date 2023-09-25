@@ -6,4 +6,5 @@
     DBUSER=
     DBPASS=
     DBNAME=
+    SECRET=
 ```
