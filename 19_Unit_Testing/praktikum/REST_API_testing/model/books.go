@@ -5,6 +5,14 @@ import (
 	"gorm.io/gorm"
 )
 
+type BookModelInterface interface {
+	GetAllBooks() []Book
+	GetBookById(id int) Book
+	InsertBook(newBook Book) *Book
+	UpdateBook(updateBook Book) *Book
+	DeleteBook(id int)
+}
+
 type Book struct {
 	gorm.Model
 	Judul    string `json:"judul" form:"judul"`
@@ -14,6 +22,12 @@ type Book struct {
 
 type BookModel struct {
 	DB *gorm.DB
+}
+
+func NewBookModel(db *gorm.DB) BookModelInterface {
+	return &BookModel{
+		DB: db,
+	}
 }
 
 func (bookModel *BookModel) Init(DB *gorm.DB) {

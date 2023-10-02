@@ -10,13 +10,27 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type BookController struct {
-	model model.BookModel
+type BookControllerInterface interface {
+	GetBooks(c echo.Context) error
+	GetBook(c echo.Context) error
+	Insert(c echo.Context) error
+	Update(c echo.Context) error
+	Delete(c echo.Context) error
 }
 
-func (bookController *BookController) InitBookController(bookModel model.BookModel) {
-	bookController.model = bookModel
+type BookController struct {
+	model model.BookModelInterface
 }
+
+func NewBookController(bookModelInterface model.BookModelInterface) BookControllerInterface {
+	return &BookController{
+		model: bookModelInterface,
+	}
+}
+
+// func (bookController *BookController) InitBookController(bookModel model.BookModel) {
+// 	bookController.model = bookModel
+// }
 
 func (bookController *BookController) GetBooks(c echo.Context) error {
 	var result = bookController.model.GetAllBooks()
@@ -27,7 +41,7 @@ func (bookController *BookController) GetBooks(c echo.Context) error {
 func (bookController *BookController) GetBook(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, helper.SetResponse(err.Error(), nil))
+		return c.JSON(http.StatusBadRequest, helper.SetResponse("Invalid ID", nil))
 	}
 
 	var result = bookController.model.GetBookById(id)
@@ -57,7 +71,7 @@ func (bookController *BookController) Update(c echo.Context) error {
 
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, helper.SetResponse(err.Error(), nil))
+		return c.JSON(http.StatusBadRequest, helper.SetResponse("Invalid ID", nil))
 	}
 
 	update.ID = uint(id)
@@ -69,10 +83,10 @@ func (bookController *BookController) Update(c echo.Context) error {
 func (bookController *BookController) Delete(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, helper.SetResponse(err.Error(), nil))
+		return c.JSON(http.StatusBadRequest, helper.SetResponse("Invalid ID", nil))
 	}
 
 	bookController.model.DeleteBook(id)
 
-	return c.JSON(http.StatusOK, []any{})
+	return c.JSON(http.StatusOK, nil)
 }

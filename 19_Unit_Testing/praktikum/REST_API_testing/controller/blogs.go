@@ -10,13 +10,27 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type BlogController struct {
-	model model.BlogModel
+type BlogControllerInterface interface {
+	GetBlogs(c echo.Context) error
+	GetBlog(c echo.Context) error
+	Create(c echo.Context) error
+	Update(c echo.Context) error
+	Delete(c echo.Context) error
 }
 
-func (blogController *BlogController) InitBlogController(blogModel model.BlogModel) {
-	blogController.model = blogModel
+type BlogController struct {
+	model model.BlogModelInterface
 }
+
+func NewBlogController(blogModelInterface model.BlogModelInterface) BlogControllerInterface {
+	return &BlogController{
+		model: blogModelInterface,
+	}
+}
+
+// func (blogController *BlogController) InitBlogController(blogModel model.BlogModel) {
+// 	blogController.model = blogModel
+// }
 
 func (blogController *BlogController) GetBlogs(c echo.Context) error {
 	var result = blogController.model.GetAllBlogs()
@@ -27,7 +41,7 @@ func (blogController *BlogController) GetBlogs(c echo.Context) error {
 func (blogController *BlogController) GetBlog(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, helper.SetResponse(err.Error(), nil))
+		return c.JSON(http.StatusBadRequest, helper.SetResponse("Invalid ID", nil))
 	}
 
 	var result = blogController.model.GetBlogById(id)
@@ -57,7 +71,7 @@ func (blogController *BlogController) Update(c echo.Context) error {
 
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, helper.SetResponse(err.Error(), nil))
+		return c.JSON(http.StatusBadRequest, helper.SetResponse("Invalid ID", nil))
 	}
 
 	update.ID = uint(id)
@@ -69,10 +83,10 @@ func (blogController *BlogController) Update(c echo.Context) error {
 func (blogController *BlogController) Delete(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, helper.SetResponse(err.Error(), nil))
+		return c.JSON(http.StatusBadRequest, helper.SetResponse("Invalid ID", nil))
 	}
 
 	blogController.model.DeleteBlog(id)
 
-	return c.JSON(http.StatusOK, []any{})
+	return c.JSON(http.StatusOK, nil)
 }

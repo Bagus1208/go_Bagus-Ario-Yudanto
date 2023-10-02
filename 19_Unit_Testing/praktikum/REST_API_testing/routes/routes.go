@@ -8,12 +8,12 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func RouteUser(e *echo.Echo, usercontroller controller.UserController, config configs.Config) {
+func RouteUser(e *echo.Echo, usercontroller controller.UserControllerInterface, config configs.Config) {
 	e.POST("/users", usercontroller.Create)
 	e.POST("/users/login", usercontroller.Login)
 
 	users := e.Group("/users")
-	// users.Use(echojwt.JWT([]byte(config.Secret)))
+	users.Use(echojwt.JWT([]byte(config.Secret)))
 	users.GET("", usercontroller.GetUsers)
 	users.GET("/:id", usercontroller.GetUser)
 	users.GET("/blogs", usercontroller.GetBlogs)
@@ -21,7 +21,7 @@ func RouteUser(e *echo.Echo, usercontroller controller.UserController, config co
 	users.DELETE("/:id", usercontroller.Delete)
 }
 
-func RouteBook(e *echo.Echo, bookController controller.BookController, config configs.Config) {
+func RouteBook(e *echo.Echo, bookController controller.BookControllerInterface, config configs.Config) {
 	books := e.Group("/books")
 	books.Use(echojwt.JWT([]byte(config.Secret)))
 	books.GET("", bookController.GetBooks)
@@ -31,7 +31,7 @@ func RouteBook(e *echo.Echo, bookController controller.BookController, config co
 	books.DELETE("/:id", bookController.Delete)
 }
 
-func RouteBlog(e *echo.Echo, blogController controller.BlogController) {
+func RouteBlog(e *echo.Echo, blogController controller.BlogControllerInterface) {
 	blogs := e.Group("/blogs")
 	blogs.GET("", blogController.GetBlogs)
 	blogs.GET("/:id", blogController.GetBlog)

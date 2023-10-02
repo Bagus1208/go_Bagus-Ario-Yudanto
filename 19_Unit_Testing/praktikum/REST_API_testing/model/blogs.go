@@ -5,6 +5,14 @@ import (
 	"gorm.io/gorm"
 )
 
+type BlogModelInterface interface {
+	GetAllBlogs() []Blog
+	GetBlogById(id int) Blog
+	CreateBlog(newBlog Blog) *Blog
+	UpdateBlog(updateBlog Blog) *Blog
+	DeleteBlog(id int)
+}
+
 type Blog struct {
 	gorm.Model
 	UserID uint   `json:"user_id" form:"user_id"`
@@ -14,6 +22,12 @@ type Blog struct {
 
 type BlogModel struct {
 	DB *gorm.DB
+}
+
+func NewBlogModel(db *gorm.DB) BlogModelInterface {
+	return &BlogModel{
+		DB: db,
+	}
 }
 
 func (blogModel *BlogModel) Init(DB *gorm.DB) {

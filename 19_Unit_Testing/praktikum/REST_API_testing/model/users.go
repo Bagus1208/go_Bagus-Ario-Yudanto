@@ -5,12 +5,22 @@ import (
 	"gorm.io/gorm"
 )
 
+type UserModelInterface interface {
+	GetAllUser() []User
+	GetUserById(id int) User
+	CreateUser(newUser User) *User
+	UpdateUser(updateUser User) *User
+	DeleteUser(id int)
+	GetUserBlogs() []User
+	Login(email string, password string) *User
+}
+
 type User struct {
 	gorm.Model
 	Name     string `json:"name" form:"name"`
 	Email    string `json:"email" form:"email"`
 	Password string `json:"password" form:"password"`
-	// Blogs    []Blog `json:"blog" form:"blog" gorm:"ForeignKey:UserID;"`
+	Blogs    []Blog `json:"blog" form:"blog" gorm:"ForeignKey:UserID;"`
 }
 
 type LoginModel struct {
@@ -24,6 +34,12 @@ type UserModel struct {
 
 func (usermodel *UserModel) Init(DB *gorm.DB) {
 	usermodel.DB = DB
+}
+
+func NewUserModel(db *gorm.DB) UserModelInterface {
+	return &UserModel{
+		DB: db,
+	}
 }
 
 func (userModel *UserModel) GetAllUser() []User {

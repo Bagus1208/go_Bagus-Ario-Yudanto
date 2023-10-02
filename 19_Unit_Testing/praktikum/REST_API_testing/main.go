@@ -18,23 +18,14 @@ func main() {
 	var DB = model.InitModel(*config)
 	model.Migrate(DB)
 
-	userModel := model.UserModel{}
-	userModel.Init(DB)
+	userModel := model.NewUserModel(DB)
+	userControll := controller.NewUserController(userModel, *config)
 
-	userControll := controller.UserController{}
-	userControll.InitUserController(userModel, *config)
+	bookModel := model.NewBookModel(DB)
+	bookControll := controller.NewBookController(bookModel)
 
-	bookModel := model.BookModel{}
-	bookModel.Init(DB)
-
-	bookControll := controller.BookController{}
-	bookControll.InitBookController(bookModel)
-
-	blogModel := model.BlogModel{}
-	blogModel.Init(DB)
-
-	blogControll := controller.BlogController{}
-	blogControll.InitBlogController(blogModel)
+	blogModel := model.NewBlogModel(DB)
+	blogControll := controller.NewBlogController(blogModel)
 
 	helper.LogMiddlewares(e)
 

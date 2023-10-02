@@ -11,15 +11,32 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+type UserControllerInterface interface {
+	GetUsers(c echo.Context) error
+	GetUser(c echo.Context) error
+	Create(c echo.Context) error
+	Update(c echo.Context) error
+	Delete(c echo.Context) error
+	GetBlogs(c echo.Context) error
+	Login(c echo.Context) error
+}
+
 type UserController struct {
-	model  model.UserModel
+	model  model.UserModelInterface
 	config configs.Config
 }
 
-func (userController *UserController) InitUserController(userModel model.UserModel, config configs.Config) {
-	userController.model = userModel
-	userController.config = config
+func NewUserController(userModelInterface model.UserModelInterface, conf configs.Config) UserControllerInterface {
+	return &UserController{
+		model:  userModelInterface,
+		config: conf,
+	}
 }
+
+// func (userController *UserController) InitUserController(userModel model.UserModel, config configs.Config) {
+// 	userController.model = userModel
+// 	userController.config = config
+// }
 
 func (userController *UserController) GetUsers(c echo.Context) error {
 	var result = userController.model.GetAllUser()
@@ -31,7 +48,7 @@ func (userController *UserController) GetUser(c echo.Context) error {
 	input := c.Param("id")
 	id, err := strconv.Atoi(input)
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, helper.SetResponse(err.Error(), nil))
+		return c.JSON(http.StatusBadRequest, helper.SetResponse("Invalid ID", nil))
 	}
 
 	var result = userController.model.GetUserById(id)
@@ -61,7 +78,7 @@ func (userController *UserController) Update(c echo.Context) error {
 
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, helper.SetResponse(err.Error(), nil))
+		return c.JSON(http.StatusBadRequest, helper.SetResponse("Invalid ID", nil))
 	}
 
 	update.ID = uint(id)
@@ -73,12 +90,12 @@ func (userController *UserController) Update(c echo.Context) error {
 func (userController *UserController) Delete(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, helper.SetResponse(err.Error(), nil))
+		return c.JSON(http.StatusBadRequest, helper.SetResponse("Invalid ID", nil))
 	}
 
 	userController.model.DeleteUser(id)
 
-	return c.JSON(http.StatusOK, []any{})
+	return c.JSON(http.StatusOK, nil)
 }
 
 func (userController *UserController) GetBlogs(c echo.Context) error {
