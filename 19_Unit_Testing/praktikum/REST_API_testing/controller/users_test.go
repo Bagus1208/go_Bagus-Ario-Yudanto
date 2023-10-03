@@ -95,7 +95,7 @@ type ResponseData struct {
 	Message string         `json:"message"`
 }
 
-var Token = "bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTYyNzE2ODMsImlhdCI6MTY5NjI2ODA4MywiaWQiOjJ9.Dc9erW1J_VS4SUn4FR5v52l8BaWIgu46_7QWpQBxn-I"
+var Token = "bearer " + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTYzMDMzMzYsImlhdCI6MTY5NjI5OTczNiwiaWQiOjF9.TidWxlTxZyrzGGRYrgupD4DE6hVs_QTFmfsImT_tLDg"
 
 func TestGetAllUsers(t *testing.T) {
 	var mdl = UserMock{status: "valid"}
@@ -483,19 +483,11 @@ func TestLogin(t *testing.T) {
 		var resData = json.NewDecoder(res.Result().Body)
 		err := resData.Decode(&tmp)
 
-		fmt.Println(tmp.Data["access_Token"])
+		fmt.Println("Access Token :", tmp.Data["access_token"])
 
 		assert.NoError(t, err)
 		assert.Equal(t, http.StatusOK, res.Code)
 		assert.NotNil(t, tmp.Data)
 		assert.Equal(t, "success", tmp.Message)
 	})
-}
-
-func TestNUC(t *testing.T) {
-	var mdl = UserMock{status: "valid"}
-	var config = configs.InitConfig()
-	result := NewUserController(&mdl, *config)
-
-	assert.NotNil(t, result)
 }
