@@ -24,7 +24,7 @@ func (service *userService) Create(userdto dto.UserInput) (entity.User, error) {
 	if err != nil {
 		log.Fatalf("Failed map %v", err)
 	}
-	res, err := service.userRepo.Insert(user)
+	res, err := service.userRepo.Insert(&user)
 	if err != nil {
 		return entity.User{}, err
 	}

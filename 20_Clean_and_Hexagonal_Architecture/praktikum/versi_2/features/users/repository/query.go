@@ -16,12 +16,12 @@ func New(DB *gorm.DB) entity.Repository {
 	}
 }
 
-func (usermodel *userModel) Insert(data entity.User) (entity.User, error) {
+func (usermodel *userModel) Insert(data *entity.User) (entity.User, error) {
 	err := usermodel.db.Create(data).Error
 	if err != nil {
 		return entity.User{}, err
 	}
-	return data, nil
+	return *data, nil
 }
 
 func (usermodel *userModel) GetAll() ([]entity.User, error) {

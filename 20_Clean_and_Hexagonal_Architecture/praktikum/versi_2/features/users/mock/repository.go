@@ -9,9 +9,9 @@ type Repository struct {
 	Status string
 }
 
-func (_m *Repository) Insert(data entity.User) (entity.User, error) {
+func (_m *Repository) Insert(data *entity.User) (entity.User, error) {
 	if _m.Status == "valid" {
-		return data, nil
+		return *data, nil
 	}
 	return entity.User{}, errors.New("error")
 }

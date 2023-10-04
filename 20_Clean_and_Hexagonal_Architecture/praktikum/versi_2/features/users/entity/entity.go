@@ -14,7 +14,7 @@ type User struct {
 }
 
 type Repository interface {
-	Insert(data User) (User, error)
+	Insert(data *User) (User, error)
 	GetAll() ([]User, error)
 	Login(email string, password string) *User
 }
