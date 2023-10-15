@@ -22,12 +22,20 @@
 
 <br>
 
-4. Keuntungan database migration
-   1. Mudah untuk update database
-   2. Mudah untuk rollback database
-   3. Dapat tracking struktur database
-   4. Riwayat struktur database ditulis pada sebuah kode
-   5. Selalu kompatibel dengan perubahan versi aplikasi
+4. Database relasional di GORM
+   * Belongs to
+   * Has one
+   * Has many
+   * Many to many
+
+<br>
+
+5. Keuntungan database migration
+   * Mudah untuk update database
+   * Mudah untuk rollback database
+   * Dapat tracking struktur database
+   * Riwayat struktur database ditulis pada sebuah kode
+   * Selalu kompatibel dengan perubahan versi aplikasi
 
 <br>
 
